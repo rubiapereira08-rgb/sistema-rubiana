@@ -1,2 +1,90 @@
-<h1>💙 Sistema Dra. Rubiana</h1>
-<p>AGORA ESTÁ FUNCIONANDO DE VERDADE!</p>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sistema Dra. Rubiana</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+button {
+  background: #8e3a59;
+  color: white;
+  border: none;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>💙 Sistema Dra. Rubiana</h2>
+
+<div class="card">
+<h3>Novo Paciente</h3>
+<input id="nome" placeholder="Nome do paciente">
+<button onclick="addPaciente()">Adicionar</button>
+</div>
+
+<div id="lista"></div>
+
+<script>
+
+let pacientes = []
+
+function addPaciente(){
+  let nome = document.getElementById("nome").value
+  if(!nome) return
+
+  pacientes.push({nome, evolucoes: []})
+  render()
+}
+
+function addEvolucao(i){
+  let texto = prompt("Digite a evolução:")
+  if(!texto) return
+
+  pacientes[i].evolucoes.push(texto)
+  render()
+}
+
+function render(){
+  let html = ""
+
+  pacientes.forEach((p, i)=>{
+    html += `
+    <div class="card">
+      <h3>${p.nome}</h3>
+      <button onclick="addEvolucao(${i})">Nova Evolução</button>
+      ${p.evolucoes.map(e=>`<p>${e}</p>`).join("")}
+    </div>
+    `
+  })
+
+  document.getElementById("lista").innerHTML = html
+}
+
+</script>
+
+</body>
+</html>
